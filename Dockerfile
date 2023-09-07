@@ -1,5 +1,9 @@
 FROM docker:latest
 
+LABEL org.opencontainers.image.source=https://github.com/liquidlight/docker-slim
+LABEL org.opencontainers.image.description="Docker image containing docker-slim"
+LABEL org.opencontainers.image.licenses=ISC
+
 ARG DOCKER_SLIM_VERSION=1.37.3
 
 RUN apk add \
