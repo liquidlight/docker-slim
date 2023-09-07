@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  REPO_NAME: ${{ github.repository }}
   DOCKER_SLIM_VERSION: 1.37.3
 
 jobs:
@@ -18,11 +18,14 @@ jobs:
       packages: write
 
     steps:
+      - name: Set docker image env var
+        run: |
+          echo "IMAGE_NAME=${{ env.REGISTRY }}/${{ env.REPO_NAME }}:${{ env.DOCKER_SLIM_VERSION }}" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      -
-        name: Login to GitHub Container Registry
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
@@ -36,4 +39,15 @@ jobs:
           build-args: |
             "DOCKER_SLIM_VERSION=${{ env.DOCKER_SLIM_VERSION }}"
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.DOCKER_SLIM_VERSION }}
+          tags: ${{ env.IMAGE_NAME }}
+
+      - name: Make a Slim image
+        uses: kitabisa/docker-slim-action@v1
+        env:
+          DSLIM_HTTP_PROBE: false
+        with:
+          target: ${{ env.IMAGE_NAME }}
+          tag: "${{ env.DOCKER_SLIM_VERSION }}-slim"
+
+      # Push to the registry
+      - run: docker push ${{ env.IMAGE_NAME }}-slim
