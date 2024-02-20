@@ -7,7 +7,7 @@ on:
 env:
   REGISTRY: ghcr.io
   REPO_NAME: ${{ github.repository }}
-  DOCKER_SLIM_VERSION: 1.37.3
+  DOCKER_SLIM_VERSION: 1.40.11
 
 jobs:
   build-and-push-image:
