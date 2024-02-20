@@ -4,7 +4,7 @@ LABEL org.opencontainers.image.source=https://github.com/liquidlight/docker-slim
 LABEL org.opencontainers.image.description="Docker image containing docker-slim"
 LABEL org.opencontainers.image.licenses=ISC
 
-ARG DOCKER_SLIM_VERSION=1.37.3
+ARG DOCKER_SLIM_VERSION=1.40.11
 
 RUN apk add \
 	--update \

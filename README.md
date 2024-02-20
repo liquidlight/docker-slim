@@ -22,7 +22,7 @@ It is worth running `docker-slim` locally to ensure you get the parameters you n
 ```yaml
 slim:image:build:
   # Use the image with built-in docker slim
-  image: ghcr.io/liquidlight/docker-slim:1.37.3
+  image: ghcr.io/liquidlight/docker-slim:1.40.11
   # Specify input and output names
   variables:
     IMAGE_NAME: "$CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH"
